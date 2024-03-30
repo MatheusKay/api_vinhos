@@ -11,19 +11,19 @@ const Wine = mongoose.model('Wine', {
     country_img: String
 })
 
-server.get('/', async (require, response) => {
+server.get('/vinhos', async (require, response) => {
     const wines =  await Wine.find()
 
     return response.send(wines)
 })
 
-server.delete('/:id', async (require, response) => {
+server.delete('/vinhos/:id', async (require, response) => {
     const wine = await Wine.findByIdAndDelete(require.params.id)
 
     return response.send(wine)
 })
 
-server.put('/:id', async (require, response) => {
+server.put('/vinhos/:id', async (require, response) => {
     const wine = await Wine.findByIdAndUpdate(require.params.id, {
         title: require.body.title,
         price: require.body.price,
@@ -36,7 +36,7 @@ server.put('/:id', async (require, response) => {
     return response.send(wine)
 })
 
-server.post('/', async (require, response) => {
+server.post('/vinhos', async (require, response) => {
     const wines = new Wine({
         title: require.body.title,
         price: require.body.price,
@@ -49,8 +49,8 @@ server.post('/', async (require, response) => {
     return response.send(wines)
 })
 
-server.listen(3500, () => {
-    mongoose.connect('mongodb+srv://kayquedeveloper:Allan0623@banco-de-vinhos.ft3ul85.mongodb.net/?retryWrites=true&w=majority&appName=banco-de-vinhos')
+mongoose.connect('mongodb+srv://kayquedeveloper:Allan0623@banco-de-vinhos.ft3ul85.mongodb.net/?retryWrites=true&w=majority&appName=banco-de-vinhos')
 
+server.listen(3500, () => {
     console.log('Api pronta para uso')
 })
