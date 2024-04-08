@@ -6,4 +6,4 @@ async function getWines(req, res) {
     return res.status(200).json(wines)
 }
 
-export { getWines }
+export { getWines } 
