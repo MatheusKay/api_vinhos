@@ -6,9 +6,9 @@ import connectDatabase from './database/db.js'
 
 const server = express()
 
+server.use(cors())
 server.use(express.json())
 server.use(routes)
-server.use(cors())
 
 connectDatabase().then(() => {
     server.listen(3500, () => console.log('Api voando'))
