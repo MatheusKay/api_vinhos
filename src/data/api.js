@@ -9,14 +9,22 @@ const atualizarBancoApi = async () => {
         let data = await fs.readFile('src/data/api.json', 'utf8')
 
         let bancoApi = JSON.parse(data)
-
+        
         for (let i = 0; i < bancoApi.length; i++) {
             bancoApi[i].vendas = gerarNumeroAleatorio(100, 10000)
             bancoApi[i].favoritos = gerarNumeroAleatorio(100, 1000)
             bancoApi[i].id = i + 1
+            bancoApi[i].count = 0
         }
 
-        let bancoApiAtualizado = JSON.stringify(bancoApi, null, 2)
+        let newBanco = bancoApi.slice()
+        
+        for (let i = newBanco.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1))
+            ;[newBanco[i], newBanco[j]] = [newBanco[j], newBanco[i]]
+        }
+
+        let bancoApiAtualizado = JSON.stringify(newBanco, null, 2)
 
         await fs.writeFile('src/data/api.json', bancoApiAtualizado, 'utf8')
 
